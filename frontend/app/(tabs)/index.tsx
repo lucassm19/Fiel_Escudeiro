@@ -63,8 +63,7 @@ export default function Index() {
         </View>
       ) : (
         <View style={styles.footerContainer}>
-          <Button theme="primary" label="Choose a photo" onPress={pickImageAsync} />
-          <Button label="Use this photo" onPress={() => setShowAppOptions(true)} />
+          <Button theme="primary" label="Insira uma foto" onPress={pickImageAsync} />
         </View>
       )}
       <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>

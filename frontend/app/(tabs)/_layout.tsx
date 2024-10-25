@@ -27,11 +27,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="about"
+        name="listagem"
         options={{
-          title: 'About',
+          title: 'Personagens',
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'information-circle' : 'information-circle-outline'} color={color} size={24} />
+            <MaterialIcons name={focused ? 'person-search' : 'person-search'} color={color} size={24} />
           ),
         }}
       />
@@ -40,7 +40,7 @@ export default function TabLayout() {
         options={{
           title: 'Novo Personagem',
           tabBarIcon: ({ color, focused }) => (
-            <MaterialIcons name={focused ? 'person-add-alt-1': 'person-add-alt'} color={color} size={24} />
+            <MaterialIcons name={focused ? 'person-add-alt-1' : 'person-add-alt'} color={color} size={24} />
           ),
         }}
       />
