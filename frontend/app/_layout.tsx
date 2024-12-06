@@ -1,20 +1,12 @@
-// app/_layout.tsx
-import { Stack } from 'expo-router';
-import { setStatusBarStyle } from "expo-status-bar";
-import { useEffect } from "react";
+import { Slot } from "expo-router"
+import { ClerkProvider } from "@clerk/clerk-expo"
 
-export default function RootLayout() {
-  useEffect(() => {
-    setTimeout(() => {
-      setStatusBarStyle("light");
-    }, 0);
-  }, []);
+const PUBLIC_CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY as string
 
-  return (
-    <Stack>
-      <Stack.Screen name="login" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="+not-found" />
-    </Stack>
-  );
+export default function Layout() {
+    return (
+        <ClerkProvider publishableKey={PUBLIC_CLERK_PUBLISHABLE_KEY}>
+            <Slot />
+        </ClerkProvider>
+    )
 }
