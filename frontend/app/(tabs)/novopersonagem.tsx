@@ -4,29 +4,45 @@ import { Picker } from '@react-native-picker/picker';
 
 export default function NovoPersonagemScreen() {
     const [nome, setNome] = useState('');
-    const [aparencia, setAparencia] = useState<string>('');
+    const [caracteristica, setCaracteristica] = useState<string>('');
     const [ocupacao, setOcupacao] = useState<string>('');
     const [nivel, setNivel] = useState<string>('');
 
-    const handleCadastro = () => {
+    const handleCadastro = async () => {
         // Validação dos campos
-        if (!nome || !aparencia || !ocupacao || !nivel) {
-            Alert.alert("Erro", "Por favor, preencha todos os campos.");
-            return;
+        try {
+            const response = await fetch('http://localhost:3000/fichas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nome,
+                    caracteristica,
+                    ocupacao,
+                    nivel
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Erro ao cadastrar personagem');
+            }
+
+            const data = await response.json();
+            console.log('Personagem cadastrado com sucesso:', data);
+
+            // Limpar os campos
+            setNome('');
+            setCaracteristica('');
+            setOcupacao('');
+            setNivel('');
+
+            // Exibir mensagem de sucesso
+            Alert.alert("Cadastro Realizado", "O personagem foi cadastrado com sucesso!");
+        } catch (error) {
+            console.error('Erro ao cadastrar personagem:', error);
+            Alert.alert("Erro", "Ocorreu um erro ao cadastrar o personagem.");
         }
-
-        // Exibe um popup de sucesso
-        Alert.alert(
-            "Cadastro Realizado",
-            "O personagem foi cadastrado com sucesso!",
-            [{ text: "OK" }]
-        );
-
-        // Limpa os campos após o cadastro
-        setNome('');
-        setAparencia('');
-        setOcupacao('');
-        setNivel('');
     };
 
     return (
@@ -40,16 +56,19 @@ export default function NovoPersonagemScreen() {
                 onChangeText={setNome}
             />
 
-            <Text style={styles.label}>Aparência:</Text>
+            <Text style={styles.label}>Característica:</Text>
             <Picker
-                selectedValue={aparencia}
+                selectedValue={caracteristica}
                 style={styles.picker}
-                onValueChange={(itemValue: string) => setAparencia(itemValue)}
+                onValueChange={(itemValue: string) => setCaracteristica(itemValue)}
             >
-                <Picker.Item label="Selecione uma aparência" value="" />
-                <Picker.Item label="Aparência 1" value="aparencia1" />
-                <Picker.Item label="Aparência 2" value="aparencia2" />
-                <Picker.Item label="Aparência 3" value="aparencia3" />
+                <Picker.Item label="Selecione uma característica" value="" />
+                <Picker.Item label="Bomba-relógio" value="caract1" />
+                <Picker.Item label="Cinzento" value="caract2" />
+                <Picker.Item label="Amaldiçoado" value="caract3" />
+                <Picker.Item label="Tom bélico" value="caract4" />
+                <Picker.Item label="Flutulência" value="caract5" />
+                <Picker.Item label="Minicabeça" value="caract6" />
             </Picker>
 
             <Text style={styles.label}>Ocupação:</Text>
@@ -59,9 +78,12 @@ export default function NovoPersonagemScreen() {
                 onValueChange={(itemValue: string) => setOcupacao(itemValue)}
             >
                 <Picker.Item label="Selecione uma ocupação" value="" />
-                <Picker.Item label="Ocupação 1" value="ocupacao1" />
-                <Picker.Item label="Ocupação 2" value="ocupacao2" />
-                <Picker.Item label="Ocupação 3" value="ocupacao3" />
+                <Picker.Item label="Mercenário" value="ocupacao1" />
+                <Picker.Item label="Caçador" value="ocupacao2" />
+                <Picker.Item label="Gatuno" value="ocupacao3" />
+                <Picker.Item label="Líder" value="ocupacao4" />
+                <Picker.Item label="Incendiário" value="ocupacao5" />
+                <Picker.Item label="Bruxo" value="ocupacao6" />
             </Picker>
 
             <TextInput

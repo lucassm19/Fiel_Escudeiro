@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 
@@ -9,7 +9,7 @@ import CircleButton from '@/components/CircleButton';
 import EmojiPicker from '@/components/EmojiPicker';
 import EmojiList from '@/components/EmojiList';
 
-const PlaceholderImage = require('@/assets/images/background-image.png');
+const PlaceholderImage = require('@/assets/images/goblins.png');
 
 export default function Index() {
   const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
@@ -63,7 +63,8 @@ export default function Index() {
         </View>
       ) : (
         <View style={styles.footerContainer}>
-          <Button theme="primary" label="Insira uma foto" onPress={pickImageAsync} />
+          {/* <Button theme="primary" label="Insira uma foto" onPress={pickImageAsync} /> */}
+          <Text style={styles.itemText}>Bem Vindo!</Text>
         </View>
       )}
       <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
@@ -93,5 +94,9 @@ const styles = StyleSheet.create({
   optionsRow: {
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  itemText: {
+    color: '#fff',
+    fontSize: 18,
   },
 });
